@@ -48,11 +48,33 @@ javascript:(function() {
 
 
   function life_iteration() {
-    grid.forEach(function(column) {
-      column.forEach(function(cell) {
-        cell.set_alive();
+    grid.forEach(function(column, x) {
+      column.forEach(function(cell, y) {
+        cell.living_neighbors_count = count_living_neighbors_at(x, y);
+        console.log(`Looking at (${x},${y}) and it has ${cell.living_neighbors_count} neighbors.`);
       });
     });
+  }
+
+
+  function count_living_neighbors_at(x, y) {
+    var neighbs = 0,
+        positions = [[x-1,y-1], [x-0,y-1], [x+1,y-1],
+                     [x-1,y-0], /* ^_^  */ [x+1,y-0],
+                     [x-1,y+1], [x-0,y+1], [x+1,y+1]];
+
+    positions.forEach(function(point) {
+      var x = point[0], y = point[1];
+
+      if (x < 0 ||
+          y < 0 ||
+          x > grid.length - 1 ||
+          y > grid[0].length - 1) return;
+
+      if (grid[x][y].alive) neighbs++;
+    });
+
+    return neighbs;
   }
 
 
@@ -73,9 +95,4 @@ javascript:(function() {
     this.alive = false;
     svg_node.setAttribute('fill', '#eeeeee');
   };
-
-
-  window.grid = grid;
-
-
 })();
