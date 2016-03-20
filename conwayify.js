@@ -48,10 +48,16 @@ javascript:(function() {
 
 
   function life_iteration() {
+    /* iterate over full grid twice, first to count neighbors, then to apply Life rules */
     grid.forEach(function(column, x) {
       column.forEach(function(cell, y) {
         cell.living_neighbors_count = count_living_neighbors_at(x, y);
-        console.log(`Looking at (${x},${y}) and it has ${cell.living_neighbors_count} neighbors.`);
+      });
+    });
+
+    grid.forEach(function(column, x) {
+      column.forEach(function(cell, y) {
+        cell.apply_life_rules();
       });
     });
   }
@@ -82,6 +88,7 @@ javascript:(function() {
   function Cell(alive, svg_el_reference) {
     this.alive = alive || false;
     this.svg_el_reference = svg_el_reference || null;
+    this.living_neighbors_count = 0;
   }
 
   Cell.prototype.set_alive = function() {
@@ -93,6 +100,17 @@ javascript:(function() {
 
   Cell.prototype.set_dead = function() {
     this.alive = false;
-    svg_node.setAttribute('fill', '#eeeeee');
+    this.svg_el_reference.setAttribute('fill', '#eeeeee');
+  };
+
+  Cell.prototype.apply_life_rules = function() {
+    if (this.living_neighbors_count < 2)
+      this.set_dead();
+    else if (this.alive && (this.living_neighbors_count === 2 || this.living_neighbors_count === 3))
+      this.set_alive();
+    else if (this.living_neighbors_count > 3)
+      this.set_dead();
+    else if (this.living_neighbors_count === 3)
+      this.set_alive();
   };
 })();
