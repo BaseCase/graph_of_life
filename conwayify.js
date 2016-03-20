@@ -25,7 +25,7 @@ javascript:(function() {
     /* ignore first and last cols, since they might be different heights */
     return [].map.call(svg_columns.slice(1, svg_columns.length - 1), function(col) {
       return [].map.call(col.children, function(node) {
-        var is_alive = node.getAttribute('fill') !== "#eeeeee";
+        var is_alive = node.getAttribute('fill') !== '#eeeeee';
         return new Cell(is_alive, node);
       });
     });
