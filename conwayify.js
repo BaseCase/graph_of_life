@@ -4,12 +4,10 @@ javascript:(function() {
   };
 
 
-
   var svg = document.getElementsByClassName('js-calendar-graph-svg')[0],
       graph = svg.children[0],
       columns = [].filter.call(graph.children, function(node) { return node.tagName === 'g'; }),
       grid = create_grid_from_columns(columns);
-
 
 
   hide_edge_columns(columns);
@@ -21,8 +19,6 @@ javascript:(function() {
   } else {
     window.GRAPH_OF_LIFE.interval_id = setInterval(life_iteration, 500);
   }
-
-
 
 
   function create_grid_from_columns(svg_columns) {
@@ -41,10 +37,6 @@ javascript:(function() {
     [].forEach.call(svg_columns[0].children, color_white);
     [].forEach.call(svg_columns[svg_columns.length-1].children, color_white);
   }
-
-
-
-
 
 
   function life_iteration() {
@@ -82,7 +74,6 @@ javascript:(function() {
 
     return neighbs;
   }
-
 
 
   function Cell(alive, svg_el_reference) {
