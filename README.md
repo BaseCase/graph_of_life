@@ -1,4 +1,7 @@
 # Graph of Life
+
+**NOTE**: pretty sure this doesn't work any more, as GH finally changed their graph implementation :( Maybe someday I will update the selectors...
+
 Bookmarklet that turns the Github "Contributions" graph into Conway's Game of Life.
 
 ## It looks like this
